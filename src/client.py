@@ -20,7 +20,19 @@ class BinanceClient:
     
     @classmethod
     def get_tick_size(cls, base_asset: str, quote_asset: str) -> float:
-        """Get the tick size for a given base and quote asset."""
+        """Get the tick size for a given base and quote asset.
+
+        Tick size is the minimum increment for a given asset, 
+        which is dependent on the quote asset. For example, 
+        the tick size for ETHUSDT is 0.01.
+        
+        Args:
+            base_asset (str): The base asset to get the tick size for.
+            quote_asset (str): The quote asset to get the tick size for.
+
+        Returns:
+            (float) The tick size for the given base and quote asset.
+        """
         if cls._EXCHANGE_INFO is None:
             cls._EXCHANGE_INFO = cls._CLIENT.get_exchange_info()
 
@@ -41,18 +53,17 @@ class BinanceClient:
         """Get the step size for a given base asset.
         
         Step size is the minimum increment for a given asset, 
-        which is independent of the quote asset.
-
-        For example, the step size for ETH is 0.0001, 
-        which means the minimum increment for ETH is 0.0001.
+        which is independent of the quote asset. For example, 
+        the step size for ETH is 0.0001.
 
         Args:
-            base_asset: The base asset to get the step size for.
+            base_asset (str): The base asset to get the step size for.
 
         Returns:
-            The step size for the given base asset.
+            (float) The step size for the given base asset.
         """
         base_asset = base_asset.upper()
+
         if cls._EXCHANGE_INFO is None:
             cls._EXCHANGE_INFO = cls._CLIENT.get_exchange_info()
 
